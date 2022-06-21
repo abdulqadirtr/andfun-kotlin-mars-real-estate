@@ -17,8 +17,22 @@
 
 package com.example.android.marsrealestate.network
 
+import com.squareup.moshi.Json
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
+
 private const val BASE_URL = "https://mars.udacity.com/"
 
+private val retrofit = Retrofit.Builder()
+    .addConverterFactory(ScalarsConverterFactory.create())
+    .baseUrl(BASE_URL)
+    .build()
 // TODO (02) Use Retrofit Builder with ScalarsConverterFactory and BASE_URL
+
 // TODO (03) Implement the MarsApiService interface with @GET getProperties returning a String
 // TODO (04) Create the MarsApi object using Retrofit to implement the MarsApiService
+object MarsApiService {
+    val retrofitService : MarsApi by lazy {
+        retrofit.create(MarsApi::class.java)
+    }
+}
