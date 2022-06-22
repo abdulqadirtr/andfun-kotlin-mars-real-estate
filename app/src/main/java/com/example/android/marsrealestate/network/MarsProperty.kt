@@ -17,6 +17,14 @@
 
 package com.example.android.marsrealestate.network
 
+import com.squareup.moshi.Json
+
 // TODO (02) Convert this class to a Kotlin data class that contains properties that match the JSON
 // TODO (03) Use @Json to remap the img_src field to imgSrcUrl in the data class
-class MarsProperty()
+data class MarsProperty(
+    val price : String,
+    val id : String,
+    val type : String,
+    @Json(name = "img_src")
+    val imgSrcUrl : String
+)
