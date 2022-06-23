@@ -20,8 +20,10 @@ package com.example.android.marsrealestate.overview
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.marsrealestate.R
+import com.example.android.marsrealestate.adapter.MarsAdapter
 import com.example.android.marsrealestate.databinding.FragmentOverviewBinding
 
 /**
@@ -36,6 +38,8 @@ class OverviewFragment : Fragment() {
         ViewModelProvider(this).get(OverviewViewModel::class.java)
     }
 
+    private val adapter = MarsAdapter()
+
     /**
      * Inflates the layout with Data Binding, sets its lifecycle owner to the OverviewFragment
      * to enable Data Binding to observe LiveData, and sets up the RecyclerView with an adapter.
@@ -49,6 +53,13 @@ class OverviewFragment : Fragment() {
 
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
+
+        binding.marsList.adapter = adapter
+
+        viewModel.marsPropertyValue.observe(viewLifecycleOwner, Observer {
+        adapter.setMarsProperty(it)
+        })
+
 
         setHasOptionsMenu(true)
         return binding.root

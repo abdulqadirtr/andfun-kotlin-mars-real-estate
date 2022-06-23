@@ -38,6 +38,13 @@ class OverviewViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
+    // The internal MutableLiveData String that stores the most recent response
+    private val _marsPropertyValue = MutableLiveData<List<MarsProperty>>()
+
+    // The external immutable LiveData for the response String
+    val marsPropertyValue: LiveData<List<MarsProperty>>
+        get() = _marsPropertyValue
+
     /**
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
      */
@@ -58,6 +65,7 @@ class OverviewViewModel : ViewModel() {
 
             override fun onResponse(call: Call<List<MarsProperty>>, response: Response<List<MarsProperty>>) {
                 _response.value = "Success + ${response.body()?.size} + Mars Property retrieved"
+                _marsPropertyValue.postValue(response.body())
             }
         })
     }
