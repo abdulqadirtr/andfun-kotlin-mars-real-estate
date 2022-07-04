@@ -15,5 +15,23 @@
  *
  */
 
-package com.example.android.marsrealestate
+package com.example.android.marsrealestate.Utils
 
+import android.view.View
+import android.widget.ImageView
+import androidx.core.net.toUri
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+
+
+    @BindingAdapter("imageUrl")
+    fun loadImageUrl(view : View, imgUrl : String?){
+        val image : ImageView = view as ImageView
+        imgUrl?.let {
+            val imgUri = it.toUri().buildUpon().scheme("https").build()
+            Glide.with(image.context)
+                .load(imgUri)
+                .into(image)
+        }
+
+    }

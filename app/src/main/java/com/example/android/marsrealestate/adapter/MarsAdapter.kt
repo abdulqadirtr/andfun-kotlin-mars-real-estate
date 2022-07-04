@@ -17,6 +17,7 @@ class MarsAdapter() : RecyclerView.Adapter<MarsAdapter.MarsViewHolder>() {
 
         fun bind(marsProperty : MarsProperty){
             binding.vm = marsProperty
+            binding.executePendingBindings()
             //binding.idText.text = marsProperty.id
         }
     }
